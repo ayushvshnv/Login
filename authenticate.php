@@ -7,14 +7,14 @@ if(isset($_GET['code'])){
 	$_SESSION['token'] = $googleClient->getAccessToken();
 	header('Location: ' . filter_var($redirectURL, FILTER_SANITIZE_URL));
 }
-############ Set Google access token ############
+
 if (isset($_SESSION['token'])) {
 	$googleClient->setAccessToken($_SESSION['token']);
 }
 
 
 if ($googleClient->getAccessToken()) {
-	############ Fetch data from graph api  ############
+	
 	try {
 		$gpUserProfile = $google_oauthV2->userinfo->get();
 	}
@@ -24,7 +24,7 @@ if ($googleClient->getAccessToken()) {
 		header("Location: ./");
 		exit;
 	}
-	############ Store data in database  ############
+	
 	$oauthpro = "google";
 	$oauthid = $gpUserProfile['id'] ?? '';
 	$f_name = $gpUserProfile['given_name'] ?? '';
